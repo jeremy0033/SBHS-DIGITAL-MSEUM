@@ -1,9 +1,4 @@
-import tkinter as tk
 
-root = tk.Tk()
-
-root.title("SBHS Digital Museum")
-root.geometry("900x600")
 import tkinter as tk
 from tkinter import ttk
 
@@ -42,7 +37,8 @@ search_btn.pack(pady=5)
 about_btn = ttk.Button(main, text="About Museum")
 about_btn.pack(pady=5)
 
+
 # Keep the program running
 root.mainloop()
-root.mainloop()
+
 

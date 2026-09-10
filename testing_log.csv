@@ -1,0 +1,3 @@
+Test ID,Date,Feature,What I Tested,Expected Result,Actual Result,Pass/Fail,Fix Made
+T01,11/09/2026,Main Window,Checked the code and ran the program,One main Tkinter window should be created,I found that root and mainloop were duplicated,Fail,Removed the duplicate root setup and second mainloop
+T02,11/09/2026,Main Window,Ran the program after removing the duplicate code,One SBHS Digital Museum window should open,One window opened correctly,Pass,None
