@@ -11,32 +11,98 @@ root.geometry("900x600")
 main = ttk.Frame(root, padding=20)
 main.pack(fill="both", expand=True)
 
-# Museum heading
-title_label = ttk.Label(
-    main,
-    text="SBHS DIGITAL MUSEUM",
-    font=("Segoe UI", 24, "bold")
-)
-title_label.pack(pady=(80, 10))
+# Removes everything currently shown on the screen
+def clear_screen():
+    for widget in main.winfo_children():
+        widget.destroy()
 
-# Small description
-subtitle_label = ttk.Label(
-    main,
-    text="Explore the Southland Boys' High School art collection",
-    font=("Segoe UI", 11)
-)
-subtitle_label.pack(pady=(0, 30))
 
-# Navigation buttons
-browse_btn = ttk.Button(main, text="Browse Collection")
-browse_btn.pack(pady=5)
+# Shows the home page
+def show_home():
+    clear_screen()  
+    title_label = ttk.Label(
+        main,
+        text="SBHS DIGITAL MUSEUM",
+        font=("Segoe UI", 24, "bold")
+    )
+    title_label.pack(pady=(80, 10))
 
-search_btn = ttk.Button(main, text="Search Collection")
-search_btn.pack(pady=5)
+    subtitle_label = ttk.Label(
+        main,
+        text="Explore the Southland Boys' High School art collection",
+        font=("Segoe UI", 11)
+    )
+    subtitle_label.pack(pady=(0, 30))
 
-about_btn = ttk.Button(main, text="About Museum")
-about_btn.pack(pady=5)
+    browse_btn = ttk.Button(
+        main,
+        text="Browse Collection",
+        command=show_browse
+    )
+    browse_btn.pack(pady=5)
 
+    search_btn = ttk.Button(
+        main,
+        text="Search Collection",
+        command=show_search
+    )
+    search_btn.pack(pady=5)
+
+    about_btn = ttk.Button(
+        main,
+        text="About Museum",
+        command=show_about
+    )
+    about_btn.pack(pady=5)
+
+  
+
+def show_browse():
+    clear_screen()
+
+    title = ttk.Label(main, text="Browse Collection")
+    title.pack(pady=40)
+
+    back_btn = ttk.Button(
+        main, 
+        text="Back to Home",
+         command=show_home)
+    back_btn.pack()
+
+
+def show_search():
+    clear_screen()
+
+    title = ttk.Label(main, text="Search Collection")
+    title.pack(pady=40)
+
+    back_btn = ttk.Button(main, text="Back to Home", 
+    command=show_home)
+    back_btn.pack()
+
+
+def show_about():
+    clear_screen()
+
+    title = ttk.Label(
+        main,
+        text="About Museum"
+    )
+    title.pack(pady=40)
+
+    info = ttk.Label(
+        main,
+        text="This program is an interactive digital museum catalogue for SBHS."
+    )
+    info.pack(pady=10)
+
+    back_btn = ttk.Button(
+        main,
+        text="Back to Home",
+        command=show_home
+    )
+    back_btn.pack()
+show_home()
 
 # Keep the program running
 root.mainloop()
