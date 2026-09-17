@@ -72,30 +72,28 @@ def show_home():
     )
     about_btn.pack(pady=5)
 
-  
-
 def show_browse():
     clear_screen()
 
     title = ttk.Label(main, text="Browse Collection")
     title.pack(pady=40)
+
     for artwork in artworks:
         artwork_text = artwork["title"] + " - " + artwork["artist"] + " - " + artwork["date"]
 
-        artwork_label = ttk.Label(
+        artwork_btn = ttk.Button(
             main,
-            text=artwork_text
+            text=artwork_text,
+            command=lambda a=artwork: show_artwork(a)
         )
-        artwork_label.pack(pady=5)
-
+        artwork_btn.pack(pady=5)
 
     back_btn = ttk.Button(
-        main, 
+        main,
         text="Back to Home",
-         command=show_home
-     )
+        command=show_home
+    )
     back_btn.pack()
-
 
 def show_search():
     clear_screen()
