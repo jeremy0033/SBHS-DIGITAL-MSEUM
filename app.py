@@ -111,9 +111,11 @@ def show_search():
     search_btn = ttk.Button(
         main,
         text="Search",
-        command=lambda: search_artworks(search_entry.get())
+        command=lambda: search_artworks(search_entry.get(), results_frame)
     )
     search_btn.pack(pady=5)
+    results_frame = ttk.Frame(main)
+    results_frame.pack(pady=10)
 
     back_btn = ttk.Button(
         main,
@@ -122,17 +124,23 @@ def show_search():
     )
     back_btn.pack(pady=20)
 
-def search_artworks(search_text):
+def search_artworks(search_text, results_frame):
+
+    # Clear the previous search results
+    for widget in results_frame.winfo_children():
+        widget.destroy()
+
     search_text = search_text.lower()
 
     for artwork in artworks:
         if search_text in artwork["title"].lower() or search_text in artwork["artist"].lower():
 
             result = ttk.Label(
-                main,
+                results_frame,
                 text=artwork["title"] + " - " + artwork["artist"]
             )
             result.pack(pady=5)
+            
 
 def show_about():
     clear_screen()
