@@ -98,13 +98,41 @@ def show_browse():
 def show_search():
     clear_screen()
 
-    title = ttk.Label(main, text="Search Collection")
-    title.pack(pady=40)
+    title = ttk.Label(
+        main,
+        text="Search Collection",
+        font=("Segoe UI", 22, "bold")
+    )
+    title.pack(pady=(40, 20))
 
-    back_btn = ttk.Button(main, text="Back to Home", 
-    command=show_home)
-    back_btn.pack()
+    search_entry = ttk.Entry(main, width=40)
+    search_entry.pack(pady=10)
 
+    search_btn = ttk.Button(
+        main,
+        text="Search",
+        command=lambda: search_artworks(search_entry.get())
+    )
+    search_btn.pack(pady=5)
+
+    back_btn = ttk.Button(
+        main,
+        text="Back to Home",
+        command=show_home
+    )
+    back_btn.pack(pady=20)
+
+def search_artworks(search_text):
+    search_text = search_text.lower()
+
+    for artwork in artworks:
+        if search_text in artwork["title"].lower() or search_text in artwork["artist"].lower():
+
+            result = ttk.Label(
+                main,
+                text=artwork["title"] + " - " + artwork["artist"]
+            )
+            result.pack(pady=5)
 
 def show_about():
     clear_screen()
