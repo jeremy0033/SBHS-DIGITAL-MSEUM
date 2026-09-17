@@ -2,6 +2,23 @@
 import tkinter as tk
 from tkinter import ttk
 
+artworks = [
+    {
+        "title": "Still life with Venus",
+        "artist": "Takeshi Katori",
+        "date": "1984"
+    },
+    {
+        "title": "Fox Glacier",
+        "artist": "H. W. Bloxham",
+        "date": "Unknown"
+    },
+    {
+        "title": "Woodland Path",
+        "artist": "Robert F. Sanson",
+        "date": "1968"
+    }
+]
 # Create the main window
 root = tk.Tk()
 root.title("SBHS Digital Museum")
@@ -62,11 +79,21 @@ def show_browse():
 
     title = ttk.Label(main, text="Browse Collection")
     title.pack(pady=40)
+    for artwork in artworks:
+        artwork_text = artwork["title"] + " - " + artwork["artist"] + " - " + artwork["date"]
+
+        artwork_label = ttk.Label(
+            main,
+            text=artwork_text
+        )
+        artwork_label.pack(pady=5)
+
 
     back_btn = ttk.Button(
         main, 
         text="Back to Home",
-         command=show_home)
+         command=show_home
+     )
     back_btn.pack()
 
 
