@@ -126,12 +126,24 @@ def show_search():
 
 def search_artworks(search_text, results_frame):
 
-    # Clear the previous search results
+    # Clear previous results
     for widget in results_frame.winfo_children():
         widget.destroy()
 
     search_text = search_text.lower()
 
+    # Check if the search box is empty
+    if search_text == "":
+        message = ttk.Label(
+            results_frame,
+            text="Please enter a search term."
+        )
+        message.pack(pady=5)
+        return
+
+    found = False
+
+    # Search through the artworks
     for artwork in artworks:
         if search_text in artwork["title"].lower() or search_text in artwork["artist"].lower():
 
@@ -140,6 +152,16 @@ def search_artworks(search_text, results_frame):
                 text=artwork["title"] + " - " + artwork["artist"]
             )
             result.pack(pady=5)
+
+            found = True
+
+    # If nothing matched
+    if found == False:
+        message = ttk.Label(
+            results_frame,
+            text="No artworks found."
+        )
+        message.pack(pady=5)
             
 
 def show_about():
