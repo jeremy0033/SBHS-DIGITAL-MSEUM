@@ -252,12 +252,6 @@ def show_browse():
         ).pack(pady=(4, 0))
 
 
-def show_artwork(artwork):
-        ttk.Button(
-        main,
-        text="Download Image",
-        command=lambda: download_artwork(artwork)
-    ).pack(pady=5)
 def download_artwork(artwork):
     image_name = artwork.get("image")
 
@@ -298,7 +292,6 @@ def download_artwork(artwork):
         return
 
     try:
-        # Prevent copying a file onto itself
         if Path(save_path).resolve() == image_path:
             messagebox.showinfo(
                 "Already saved",
@@ -319,6 +312,8 @@ def download_artwork(artwork):
             str(error)
         )
 
+
+def show_artwork(artwork):
     global photo_reference
 
     clear_screen()
@@ -367,7 +362,8 @@ def download_artwork(artwork):
                     )
 
                 ttk.Label(
-                    main, image=photo_reference
+                    main,
+                    image=photo_reference
                 ).pack(pady=12)
 
                 image_loaded = True
@@ -377,14 +373,24 @@ def download_artwork(artwork):
 
     if not image_loaded:
         ttk.Label(
-            main, text="Image unavailable"
+            main,
+            text="Image unavailable"
         ).pack(pady=15)
+
+    # Download button only on artwork details page
+    if image_loaded:
+        ttk.Button(
+            main,
+            text="Download Image",
+            command=lambda: download_artwork(artwork)
+        ).pack(pady=5)
 
     ttk.Button(
         main,
         text="Back to Browse",
         command=show_browse
     ).pack(pady=10)
+
 
 
 def show_search():
