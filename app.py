@@ -1,8 +1,9 @@
 
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, filedialog, messagebox
 from pathlib import Path
 import json
+import shutil
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_FILE = BASE_DIR / "artworks.json"
@@ -252,6 +253,72 @@ def show_browse():
 
 
 def show_artwork(artwork):
+        ttk.Button(
+        main,
+        text="Download Image",
+        command=lambda: download_artwork(artwork)
+    ).pack(pady=5)
+def download_artwork(artwork):
+    image_name = artwork.get("image")
+
+    if not isinstance(image_name, str) or not image_name.strip():
+        messagebox.showerror(
+            "Download failed",
+            "This artwork has no image."
+        )
+        return
+
+    image_path = (BASE_DIR / image_name).resolve()
+
+    if not image_path.is_relative_to(BASE_DIR.resolve()):
+        messagebox.showerror(
+            "Download failed",
+            "Invalid image location."
+        )
+        return
+
+    if not image_path.is_file():
+        messagebox.showerror(
+            "Download failed",
+            "Artwork image not found."
+        )
+        return
+
+    save_path = filedialog.asksaveasfilename(
+        title="Save Artwork Image",
+        initialfile=image_path.name,
+        defaultextension=image_path.suffix,
+        filetypes=[
+            ("Image files", "*.png *.jpg *.jpeg"),
+            ("All files", "*.*")
+        ]
+    )
+
+    if not save_path:
+        return
+
+    try:
+        # Prevent copying a file onto itself
+        if Path(save_path).resolve() == image_path:
+            messagebox.showinfo(
+                "Already saved",
+                "This is the original image location."
+            )
+            return
+
+        shutil.copy2(image_path, save_path)
+
+        messagebox.showinfo(
+            "Download complete",
+            "Artwork image saved successfully!"
+        )
+
+    except OSError as error:
+        messagebox.showerror(
+            "Download failed",
+            str(error)
+        )
+
     global photo_reference
 
     clear_screen()
